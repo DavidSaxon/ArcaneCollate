@@ -2,7 +2,8 @@ cmake_minimum_required(VERSION 3.2)
 project(ArcaneCollate)
 
 set(WRITE_SRC
-    src/cpp/arcanecollate/write/Collater.cpp
+    src/cpp/arcanecollate/Collater.cpp
+    src/cpp/arcanecollate/TableOfContents.cpp
 )
 
 set(TESTS_SUITES

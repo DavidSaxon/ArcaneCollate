@@ -1,17 +1,16 @@
-#include "arcanecollate/write/Collater.hpp"
+#include "arcanecollate/Collater.hpp"
 
 namespace arccol
-{
-namespace write
 {
 
 //------------------------------------------------------------------------------
 //                                  CONSTRUCTOR
 //------------------------------------------------------------------------------
 
-Collater::Collater()
+Collater::Collater(const TableOfContents& table_of_contents)
+    :
+    m_table_of_contents(table_of_contents)
 {
 }
 
-} // namespace write
-} // namespace arcol
+} // namespace arccol

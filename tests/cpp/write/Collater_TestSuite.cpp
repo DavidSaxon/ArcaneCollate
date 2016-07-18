@@ -2,14 +2,14 @@
 
 ARC_TEST_MODULE(write.Collater)
 
-#include <arcanecollate/write/Collater.hpp>
+#include <arcanecollate/Collater.hpp>
 
 // TODO: REMOVE ME
 #include <iostream>
 
 ARC_TEST_UNIT(proto)
 {
-    arccol::write::Collater c;
+    // arccol::Collater c;
 
     std::cout << "Hello tests!" << std::endl;
 }

@@ -11,7 +11,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)'=='collate_lib'">
-    <ClCompile Include="src\cpp\arcanecollate\write\Collater.cpp" />
+    <ClCompile Include="src\cpp\arcanecollate\Collater.cpp" />
+    <ClCompile Include="src\cpp\arcanecollate\TableOfContents.cpp" />
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)'=='tests'">
     <ClCompile Include="tests/cpp/TestsMain.cpp" />
