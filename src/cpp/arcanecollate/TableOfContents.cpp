@@ -4,14 +4,10 @@ namespace arccol
 {
 
 //------------------------------------------------------------------------------
-//                                  CONSTRUCTORS
+//                                  CONSTRUCTOR
 //------------------------------------------------------------------------------
 
 TableOfContents::TableOfContents(const arc::io::sys::Path& path)
-{
-}
-
-TableOfContents::TableOfContents(const TableOfContents& other)
 {
 }
 

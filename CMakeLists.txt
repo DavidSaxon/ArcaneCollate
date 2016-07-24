@@ -2,14 +2,14 @@ cmake_minimum_required(VERSION 3.2)
 project(ArcaneCollate)
 
 set(WRITE_SRC
-    src/cpp/arcanecollate/Collater.cpp
+    src/cpp/arcanecollate/Collator.cpp
     src/cpp/arcanecollate/TableOfContents.cpp
 )
 
 set(TESTS_SUITES
     tests/cpp/TestsMain.cpp
 
-    tests/cpp/write/Collater_TestSuite.cpp
+    tests/cpp/Collator_TestSuite.cpp
 )
 
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build/linux_x86)

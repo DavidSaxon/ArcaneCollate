@@ -11,12 +11,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)'=='collate_lib'">
-    <ClCompile Include="src\cpp\arcanecollate\Collater.cpp" />
+    <ClCompile Include="src\cpp\arcanecollate\Collator.cpp" />
     <ClCompile Include="src\cpp\arcanecollate\TableOfContents.cpp" />
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)'=='tests'">
     <ClCompile Include="tests/cpp/TestsMain.cpp" />
-    <ClCompile Include="tests/cpp/write/Collater_TestSuite.cpp" />
+    <ClCompile Include="tests/cpp/write/Collator_TestSuite.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{0AED2490-364F-455A-883A-D33E56C2F208}</ProjectGuid>

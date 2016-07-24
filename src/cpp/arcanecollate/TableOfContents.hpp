@@ -15,6 +15,10 @@ namespace arccol
  */
 class TableOfContents
 {
+private:
+
+    ARC_DISALLOW_COPY_AND_ASSIGN(TableOfContents);
+
 public:
 
     //--------------------------------------------------------------------------
@@ -25,13 +29,6 @@ public:
      * \brief TODO:
      */
     TableOfContents(const arc::io::sys::Path& path);
-
-    /*!
-     * \brief Copy constructor.
-     *
-     * \param other The other TableOfContents to make a copy of.
-     */
-    TableOfContents(const TableOfContents& other);
 
     //--------------------------------------------------------------------------
     //                                 OPERATORS
