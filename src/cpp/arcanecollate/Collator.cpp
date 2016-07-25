@@ -10,20 +10,6 @@
 
 #include "arcanecollate/TableOfContents.hpp"
 
-//------------------------------------------------------------------------------
-//                                   CONSTANTS
-//------------------------------------------------------------------------------
-
-namespace
-{
-
-/*!
- * \brief The extension of collated files.
- */
-static const arc::str::UTF8String EXTENSION("arcol");
-
-} // namespace anonymous
-
 namespace arccol
 {
 
@@ -91,7 +77,6 @@ void Collator::execute()
         // open the resource
         arc::io::sys::FileReader resource_reader(
             resource, arc::io::sys::FileHandle::ENCODING_RAW);
-        // TODO: add to the table of contents
 
         // read the file in chunks until we reach the end of the file
         while(!resource_reader.eof())
@@ -105,35 +90,47 @@ void Collator::execute()
                     writer->close();
                     delete writer;
                     writer = new_page(++page_index);
+                    page_current_size = 0;
                 }
             }
 
+            m_table_of_contents->add_resource(
+                resource,
+                writer->get_path(),
+                page_current_size,
+                resource_reader.get_size()
+            );
+
             // find the remaining free data in this chunk
-            arc::int64 this_read_size =
-                std::numeric_limits<arc::int64>::max();
+            std::size_t this_read_size =
+                std::numeric_limits<std::size_t>::max();
             if(m_page_size > 0)
             {
-                this_read_size = m_page_size - page_current_size;
+                this_read_size =
+                    static_cast<std::size_t>(m_page_size - page_current_size);
             }
 
             // if the remaining page data is greater than the read size, use the
             // read size instead
-            if(this_read_size > static_cast<arc::int64>(m_read_size))
+            if(this_read_size > m_read_size)
             {
-                this_read_size = static_cast<arc::int64>(m_read_size);
+                this_read_size = m_read_size;
             }
 
             // compare against the amount of data actually remaining in the file
             arc::int64 file_remaining =
                 resource_reader.get_size() - resource_reader.tell();
-            if(file_remaining < this_read_size)
+            if(file_remaining < static_cast<arc::int64>(this_read_size))
             {
-                this_read_size = file_remaining;
+                this_read_size = static_cast<std::size_t>(file_remaining);
             }
 
             // allocate the number of bytes to be read
             char* resource_data = new char[this_read_size];
-            resource_reader.read(resource_data, this_read_size);
+            resource_reader.read(
+                resource_data,
+                static_cast<arc::int64>(this_read_size)
+            );
 
             // write the data to the collated file
             writer->write(resource_data, this_read_size);
@@ -173,7 +170,7 @@ arc::io::sys::FileWriter* Collator::new_page(std::size_t page_index)
 
     arc::io::sys::Path writer_path(dir);
     arc::str::UTF8String writer_filename(filename);
-    filename << EXTENSION << page_index;
+    writer_filename << "." << page_index;
     writer_path << writer_filename;
 
     m_created.push_back(writer_path);

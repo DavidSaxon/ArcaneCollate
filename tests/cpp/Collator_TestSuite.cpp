@@ -12,7 +12,7 @@ ARC_TEST_UNIT(proto)
     arccol::TableOfContents toc(toc_path);
 
     arc::io::sys::Path base_path;
-    base_path << "tests" << "output" << "proto_test";
+    base_path << "tests" << "output" << "proto_test.arccol";
     arccol::Collator collator(&toc, base_path);
 
     arc::io::sys::Path resource_1;
@@ -24,4 +24,6 @@ ARC_TEST_UNIT(proto)
     collator.add_resource(resource_2);
 
     collator.execute();
+
+    toc.write();
 }
