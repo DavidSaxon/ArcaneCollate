@@ -31,13 +31,13 @@ Collator::Collator(
     // ensure the table of contents is not null
     if(table_of_contents == nullptr)
     {
-        // TODO:
+        throw arc::ex::ValueError("TableOfContents cannot be null.");
     }
 
     // ensure there is at least one component in the path
     if(m_base_path.is_empty())
     {
-        // TODO:
+        throw arc::ex::ValueError("base_path cannot be null.");
     }
 }
 

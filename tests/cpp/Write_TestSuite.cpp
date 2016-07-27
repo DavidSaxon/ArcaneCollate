@@ -2,6 +2,7 @@
 
 ARC_TEST_MODULE(Write)
 
+#include <arcanecore/base/Exceptions.hpp>
 #include <arcanecore/io/sys/FileReader.hpp>
 #include <arcanecore/io/sys/FileSystemOperations.hpp>
 
@@ -461,6 +462,33 @@ ARC_TEST_UNIT_FIXTURE(test_4, Test4Fixtue)
     // run checks
     fixture->check_toc();
     fixture->check_collated();
+}
+
+//------------------------------------------------------------------------------
+//                                 INVALID CASES
+//------------------------------------------------------------------------------
+
+ARC_TEST_UNIT(invalid_cases)
+{
+    arccol::TableOfContents* toc = nullptr;
+    arc::io::sys::Path valid_path;
+    valid_path << "this" << "is" << "not" << "important";
+
+    ARC_TEST_MESSAGE("Checking null TableOfContents");
+    ARC_CHECK_THROW(
+        arccol::Collator(toc, valid_path),
+        arc::ex::ValueError
+    );
+
+    ARC_TEST_MESSAGE("Checking empty base path");
+    toc = new arccol::TableOfContents(valid_path);
+    arc::io::sys::Path empty_path;
+    ARC_CHECK_THROW(
+        arccol::Collator(toc, empty_path),
+        arc::ex::ValueError
+    );
+
+    delete toc;
 }
 
 } // namespace anonymous
