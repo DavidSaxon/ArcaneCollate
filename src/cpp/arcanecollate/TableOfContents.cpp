@@ -53,15 +53,19 @@ void TableOfContents::write()
         arc::io::sys::FileHandle::ENCODING_UTF8
     );
 
-    // iterate over the resources and write a line for
+    // iterate over the resources and write their data
     for(const std::unique_ptr<ResourceEntry>& entry : m_entries)
     {
-        arc::str::UTF8String resource_line;
-        // TODO: need to hash here!
-        resource_line << entry->resource_path.to_unix() << " "
-                      << entry->collate_path.to_unix()  << " "
-                      << entry->offset << " " << entry->size;
-        writer.write_line(resource_line, false);
+        writer.write_line(entry->resource_path.to_unix(), false);
+        writer.write_line(entry->collate_path.to_unix(), false);
+
+        arc::str::UTF8String offset_str;
+        offset_str << entry->offset;
+        writer.write_line(offset_str, false);
+
+        arc::str::UTF8String size_str;
+        size_str << entry->size;
+        writer.write_line(size_str, false);
     }
 
     // done!

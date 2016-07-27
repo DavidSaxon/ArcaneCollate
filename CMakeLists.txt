@@ -9,7 +9,7 @@ set(WRITE_SRC
 set(TESTS_SUITES
     tests/cpp/TestsMain.cpp
 
-    tests/cpp/Collator_TestSuite.cpp
+    tests/cpp/Write_TestSuite.cpp
 )
 
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build/linux_x86)

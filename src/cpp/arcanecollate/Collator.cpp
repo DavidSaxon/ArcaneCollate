@@ -77,6 +77,13 @@ void Collator::execute()
         // open the resource
         arc::io::sys::FileReader resource_reader(
             resource, arc::io::sys::FileHandle::ENCODING_RAW);
+        // add to the table of contents
+        m_table_of_contents->add_resource(
+            resource,
+            writer->get_path(),
+            page_current_size,
+            resource_reader.get_size()
+        );
 
         // read the file in chunks until we reach the end of the file
         while(!resource_reader.eof())
@@ -94,12 +101,6 @@ void Collator::execute()
                 }
             }
 
-            m_table_of_contents->add_resource(
-                resource,
-                writer->get_path(),
-                page_current_size,
-                resource_reader.get_size()
-            );
 
             // find the remaining free data in this chunk
             std::size_t this_read_size =
@@ -174,7 +175,11 @@ arc::io::sys::FileWriter* Collator::new_page(std::size_t page_index)
     writer_path << writer_filename;
 
     m_created.push_back(writer_path);
-    return new arc::io::sys::FileWriter(writer_path);
+    return new arc::io::sys::FileWriter(
+            writer_path,
+            arc::io::sys::FileWriter::OPEN_TRUNCATE,
+            arc::io::sys::FileHandle::ENCODING_RAW
+    );
 }
 
 } // namespace arccol

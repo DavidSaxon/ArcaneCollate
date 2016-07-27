@@ -16,7 +16,7 @@
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)'=='tests'">
     <ClCompile Include="tests/cpp/TestsMain.cpp" />
-    <ClCompile Include="tests/cpp/Collator_TestSuite.cpp" />
+    <ClCompile Include="tests/cpp/Write_TestSuite.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{0AED2490-364F-455A-883A-D33E56C2F208}</ProjectGuid>
