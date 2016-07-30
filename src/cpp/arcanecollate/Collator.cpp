@@ -51,6 +51,26 @@ TableOfContents* Collator::get_table_of_contents() const
     return m_table_of_contents;
 }
 
+const arc::io::sys::Path& Collator::get_base_path() const
+{
+    return m_base_path;
+}
+
+arc::int64 Collator::get_page_size() const
+{
+    return m_page_size;
+}
+
+std::size_t Collator::get_read_size() const
+{
+    return m_read_size;
+}
+
+const std::vector<arc::io::sys::Path>& Collator::get_resources() const
+{
+    return m_resources;
+}
+
 bool Collator::add_resource(const arc::io::sys::Path& resource_path)
 {
     // has the resource been added already?

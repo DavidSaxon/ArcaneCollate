@@ -44,6 +44,11 @@ TableOfContents::~TableOfContents()
 //                            PUBLIC MEMBER FUNCTIONS
 //------------------------------------------------------------------------------
 
+const arc::io::sys::Path& TableOfContents::get_path() const
+{
+    return m_path;
+}
+
 void TableOfContents::write()
 {
     // open the path to write to

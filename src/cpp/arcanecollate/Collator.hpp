@@ -66,6 +66,29 @@ public:
     TableOfContents* get_table_of_contents() const;
 
     /*!
+     * \brief Returns the base path of this Collator.
+     */
+    const arc::io::sys::Path& get_base_path() const;
+
+    /*!
+     * \brief Returns the maximum size in bytes of a single collated file
+     *        produced by this object.
+     */
+    arc::int64 get_page_size() const;
+
+    /*!
+     * \brief Returns the maximum number of bytes that will be read into memory
+     *        from a resource at any one time.
+     */
+    std::size_t get_read_size() const;
+
+    /*!
+     * \brief Returns the resources that are going to be collated by this
+     *        object.
+     */
+    const std::vector<arc::io::sys::Path>& get_resources() const;
+
+    /*!
      * \brief Adds the path to a resource that will be collated by this object.
      *
      * This function does not check whether the resource exists, but if it does

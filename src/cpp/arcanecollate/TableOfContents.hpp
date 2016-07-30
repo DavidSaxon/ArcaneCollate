@@ -56,6 +56,11 @@ public:
     //--------------------------------------------------------------------------
 
     /*!
+     * \brief Returns the path this Table of contents is writing to.
+     */
+    const arc::io::sys::Path& get_path() const;
+
+    /*!
      * \brief Writes this TableOfContents to the file system.
      *
      * \note This function should be called after all Collator objects using
