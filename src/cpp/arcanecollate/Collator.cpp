@@ -6,6 +6,7 @@
 
 #include <arcanecore/base/Exceptions.hpp>
 #include <arcanecore/io/sys/FileReader.hpp>
+#include <arcanecore/io/sys/FileSystemOperations.hpp>
 #include <arcanecore/io/sys/FileWriter.hpp>
 
 #include "arcanecollate/TableOfContents.hpp"
@@ -152,7 +153,18 @@ void Collator::execute()
 
 void Collator::revert()
 {
-    // TODO:
+    // iterate over the created files and delete them
+    for(const arc::io::sys::Path& path : m_created)
+    {
+        try
+        {
+            arc::io::sys::delete_path(path);
+        }
+        catch(...)
+        {
+            // do nothing and continue
+        }
+    }
 
     // clear the list of created list
     m_created.clear();

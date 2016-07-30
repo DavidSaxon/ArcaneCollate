@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\cpp\arcanecollate\write\Collater.cpp">
+    <ClCompile Include="src\cpp\cmd\CommandLineTool.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

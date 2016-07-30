@@ -491,5 +491,47 @@ ARC_TEST_UNIT(invalid_cases)
     delete toc;
 }
 
+//------------------------------------------------------------------------------
+//                                     REVERT
+//------------------------------------------------------------------------------
+
+ARC_TEST_UNIT_FIXTURE(revert, Test2Fixtue)
+{
+    // set up the table of contents and the collator
+    arccol::TableOfContents toc(fixture->toc_path);
+    arccol::Collator collator(&toc, fixture->base_path, 256);
+
+    // add resources
+    arc::io::sys::Path resource_1;
+    resource_1 << "tests" << "data" << "file_1.txt";
+    collator.add_resource(resource_1);
+    // --
+    arc::io::sys::Path resource_2;
+    resource_2 << "tests" << "data" << "file_2.txt";
+    collator.add_resource(resource_2);
+    // --
+    arc::io::sys::Path resource_3;
+    resource_3 << "tests" << "data" << "file_3.json";
+    collator.add_resource(resource_3);
+    // --
+    arc::io::sys::Path resource_4;
+    resource_4 << "tests" << "data" << "file_4.bin";
+    collator.add_resource(resource_4);
+
+    // write out
+    collator.execute();
+
+    // revert collated files
+    collator.revert();
+
+    // check no files exist
+    for(std::size_t i = 0; i < fixture->collated_results.size(); ++i)
+    {
+        ARC_CHECK_FALSE(arc::io::sys::exists(
+            fixture->get_collated_path(fixture->base_path, i)
+        ));
+    }
+}
+
 } // namespace anonymous
 

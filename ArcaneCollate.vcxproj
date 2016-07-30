@@ -1,6 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="cmd|Win32">
+      <Configuration>cmd</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="collate_lib|Win32">
       <Configuration>collate_lib</Configuration>
       <Platform>Win32</Platform>
@@ -17,6 +21,9 @@
   <ItemGroup Condition="'$(Configuration)'=='tests'">
     <ClCompile Include="tests/cpp/TestsMain.cpp" />
     <ClCompile Include="tests/cpp/Write_TestSuite.cpp" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(Configuration)'=='cmd'">
+    <ClCompile Include="src\cpp\cmd\CommandLineTool.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{0AED2490-364F-455A-883A-D33E56C2F208}</ProjectGuid>
@@ -37,6 +44,13 @@
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='cmd|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
@@ -44,6 +58,9 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='tests|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='cmd|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
@@ -57,6 +74,12 @@
     <OutDir>$(SolutionDir)\$(ProjectName)\build\win_x86\</OutDir>
     <IntDir>intermediate\$(Configuration)\</IntDir>
     <TargetName>tests</TargetName>
+    <TargetExt>.exe</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='cmd|Win32'">
+    <OutDir>$(SolutionDir)\$(ProjectName)\build\win_x86\</OutDir>
+    <IntDir>intermediate\$(Configuration)\</IntDir>
+    <TargetName>arcanecollate</TargetName>
     <TargetExt>.exe</TargetExt>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='collate_lib|Win32'">
@@ -89,6 +112,23 @@
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>D:\Dropbox\Development\ArcaneCollate\ArcaneCollate\ext\ArcaneCore\lib\win_x86;D:\Dropbox\Development\ArcaneCollate\ArcaneCollate\build\win_x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>arcanecore_test.lib;arcanecore_io.lib;arcanecore_base.lib;arcanecollate.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='cmd|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>D:\Dropbox\Development\ArcaneCollate\ArcaneCollate\ext\ArcaneCore\include;D:\Dropbox\Development\ArcaneCollate\ArcaneCollate\ext\ArcaneLog\include;D:\Dropbox\Development\ArcaneCollate\ArcaneCollate\src\cpp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>D:\Dropbox\Development\ArcaneCollate\ArcaneCollate\ext\ArcaneCore\lib\win_x86;D:\Dropbox\Development\ArcaneCollate\ArcaneCollate\ext\ArcaneLog\lib\win_x86;D:\Dropbox\Development\ArcaneCollate\ArcaneCollate\build\win_x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>arcanecore_test.lib;arcanecore_io.lib;arcanecore_base.lib;arcanelog.lib;arcanelog_shared.lib;arcanecollate.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
