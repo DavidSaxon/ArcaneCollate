@@ -32,7 +32,10 @@ namespace arccol
 class TableOfContents;
 
 /*!
- * \brief TODO
+ * \brief Object used to write a set of resource files to a collated file.
+ *
+ * A collated file may be one single large file or a set of files defined by the
+ * page size.
  */
 class Collator
 {
@@ -47,7 +50,24 @@ public:
     //--------------------------------------------------------------------------
 
     /*!
-     * \brief TODO
+     * \brief Creates a new Collator object.
+     *
+     * \param table_of_contents Pointer to the TableOfContents that will record
+     *                          the location of the resources in the collated
+     *                          files.
+     * \param base_path The base path which the collated files will be written
+     *                  to. This path will be extend with a suffix representing
+     *                  the collated file's page number. e.g.
+     *                  ```<base_path>.0```, ```<base_path>.1```,
+     *                  ```<base_path>.7```.
+     * \param page_size The maximum size in bytes of a single collated file
+     *                  produced by this Collator.
+     * \param read_size The maximum number of bytes that will be read into
+     *                  memory from a resource at any one time.
+     *
+     * \throws arc::ex::ValueError If the table_of_contents parameter is a null
+     *                             pointer or if the base_path parameter is an
+     *                             empty path.
      */
     Collator(
         TableOfContents* table_of_contents,
@@ -103,7 +123,7 @@ public:
      * \brief Performs writing of the collated document, and adds the resource
      *        mapping to the TableOfContents.
      *
-     * \throws arc::ex::InvalidPathError If opening a resource file fails or
+     * \throws arc::ex::IOError If opening a resource file fails or
      *                                   writing to the collated file fails.
      */
     void execute();

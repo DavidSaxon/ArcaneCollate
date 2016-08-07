@@ -9,7 +9,8 @@
 /*!
  * \mainpage ArcaneCollate C++ Documentation.
  *
- * TODO:
+ * A library for collating application resources into combined files, and then
+ * accessing the resources from these files.
  */
 
 /*!

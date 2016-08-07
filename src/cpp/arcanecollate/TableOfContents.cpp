@@ -16,7 +16,8 @@ namespace arccol
 struct ResourceEntry
 {
     arc::io::sys::Path resource_path;
-    arc::io::sys::Path collate_path;
+    arc::io::sys::Path base_path;
+    std::size_t page_index;
     arc::int64 offset;
     arc::int64 size;
 };
@@ -55,22 +56,19 @@ void TableOfContents::write()
     arc::io::sys::FileWriter writer(
         m_path,
         arc::io::sys::FileWriter::OPEN_TRUNCATE,
-        arc::io::sys::FileHandle::ENCODING_UTF8
+        arc::io::sys::FileHandle::ENCODING_UTF8,
+        arc::io::sys::FileHandle::NEWLINE_UNIX
     );
 
     // iterate over the resources and write their data
     for(const std::unique_ptr<ResourceEntry>& entry : m_entries)
     {
-        writer.write_line(entry->resource_path.to_unix(), false);
-        writer.write_line(entry->collate_path.to_unix(), false);
-
-        arc::str::UTF8String offset_str;
-        offset_str << entry->offset;
-        writer.write_line(offset_str, false);
-
-        arc::str::UTF8String size_str;
-        size_str << entry->size;
-        writer.write_line(size_str, false);
+        // build the line and write
+        arc::str::UTF8String line;
+        line << entry->resource_path.to_unix() << ","
+             << entry->base_path.to_unix() << "," << entry->page_index << ","
+             << entry->offset << "," << entry->size;
+        writer.write_line(line, false);
     }
 
     // done!
@@ -84,13 +82,15 @@ void TableOfContents::write()
 
 void TableOfContents::add_resource(
         const arc::io::sys::Path& resource_path,
-        const arc::io::sys::Path& collate_path,
+        const arc::io::sys::Path& base_path,
+        std::size_t page_index,
         arc::int64 offset,
         arc::int64 size)
 {
     std::unique_ptr<ResourceEntry> entry(new ResourceEntry());
     entry->resource_path = resource_path;
-    entry->collate_path = collate_path;
+    entry->base_path = base_path;
+    entry->page_index = page_index;
     entry->offset = offset;
     entry->size = size;
     m_entries.push_back(std::move(entry));

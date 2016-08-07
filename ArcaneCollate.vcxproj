@@ -15,11 +15,13 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)'=='collate_lib'">
+    <ClCompile Include="src\cpp\arcanecollate\Accessor.cpp" />
     <ClCompile Include="src\cpp\arcanecollate\Collator.cpp" />
     <ClCompile Include="src\cpp\arcanecollate\TableOfContents.cpp" />
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)'=='tests'">
     <ClCompile Include="tests/cpp/TestsMain.cpp" />
+    <ClCompile Include="tests/cpp/Read_TestSuite.cpp" />
     <ClCompile Include="tests/cpp/Write_TestSuite.cpp" />
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)'=='cmd'">
@@ -89,7 +91,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\Dropbox\Development\ArcaneCollate\ArcaneCollate\ext\ArcaneCore\include;D:\Dropbox\Development\ArcaneCollate\ArcaneCollate\src\cpp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Dropbox\Development\ArcaneCollate\ArcaneCollate\ext\ArcaneCore\include;D:\Dropbox\Development\ArcaneCollate\ArcaneCollate\ext\ArcaneLog\include;D:\Dropbox\Development\ArcaneCollate\ArcaneCollate\src\cpp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -104,14 +106,14 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\Dropbox\Development\ArcaneCollate\ArcaneCollate\ext\ArcaneCore\include;D:\Dropbox\Development\ArcaneCollate\ArcaneCollate\src\cpp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Dropbox\Development\ArcaneCollate\ArcaneCollate\ext\ArcaneCore\include;D:\Dropbox\Development\ArcaneCollate\ArcaneCollate\ext\ArcaneLog\include;D:\Dropbox\Development\ArcaneCollate\ArcaneCollate\src\cpp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>D:\Dropbox\Development\ArcaneCollate\ArcaneCollate\ext\ArcaneCore\lib\win_x86;D:\Dropbox\Development\ArcaneCollate\ArcaneCollate\build\win_x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>arcanecore_test.lib;arcanecore_io.lib;arcanecore_base.lib;arcanecollate.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:\Dropbox\Development\ArcaneCollate\ArcaneCollate\ext\ArcaneCore\lib\win_x86;D:\Dropbox\Development\ArcaneCollate\ArcaneCollate\ext\ArcaneLog\lib\win_x86;D:\Dropbox\Development\ArcaneCollate\ArcaneCollate\build\win_x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>arcanecore_test.lib;arcanecore_io.lib;arcanecore_base.lib;arcanelog.lib;arcanecollate.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='cmd|Win32'">

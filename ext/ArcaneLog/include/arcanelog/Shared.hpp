@@ -1,6 +1,6 @@
 /*!
  * \file
- * \brief Provides the default shared logging handler
+ * \brief Provides the default shared logging handler.
  * \author David Saxon
  */
 #ifndef ARCANELOG_SHARED_HPP_

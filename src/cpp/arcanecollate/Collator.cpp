@@ -101,7 +101,8 @@ void Collator::execute()
         // add to the table of contents
         m_table_of_contents->add_resource(
             resource,
-            writer->get_path(),
+            m_base_path,
+            page_index,
             page_current_size,
             resource_reader.get_size()
         );
@@ -121,7 +122,6 @@ void Collator::execute()
                     page_current_size = 0;
                 }
             }
-
 
             // find the remaining free data in this chunk
             std::size_t this_read_size =

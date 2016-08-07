@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.2)
 project(ArcaneCollate)
 
 set(WRITE_SRC
+    src/cpp/arcanecollate/Accessor.cpp
     src/cpp/arcanecollate/Collator.cpp
     src/cpp/arcanecollate/TableOfContents.cpp
 )
@@ -13,6 +14,7 @@ set(CMD_SRC
 set(TESTS_SUITES
     tests/cpp/TestsMain.cpp
 
+    tests/cpp/Read_TestSuite.cpp
     tests/cpp/Write_TestSuite.cpp
 )
 
@@ -37,9 +39,10 @@ link_directories(
     ${CMAKE_BINARY_DIR}/build/linux_x86
 )
 
-add_library(arcanecollate_write STATIC ${WRITE_SRC})
+add_library(arcanecollate_lib STATIC ${WRITE_SRC})
 
-target_link_libraries(arcanecollate_write
+target_link_libraries(arcanecollate_lib
+    arcanelog
     arcanecore_base
     arcanecore_io
 )
@@ -47,7 +50,7 @@ target_link_libraries(arcanecollate_write
 add_executable(arcanecollate ${CMD_SRC})
 
 target_link_libraries(arcanecollate
-    arcanecollate_write
+    arcanecollate_lib
     arcanelog_shared
     arcanelog
     arcanecore_io
@@ -60,5 +63,5 @@ target_link_libraries(tests
     arcanecore_test
     arcanecore_base
     arcanecore_io
-    arcanecollate_write
+    arcanecollate_lib
 )

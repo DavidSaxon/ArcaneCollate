@@ -111,14 +111,8 @@ public:
         base_path << "tests" << "output" << "write_test.arccol";
 
         toc_result =
-            "tests/data/file_1.txt\n"
-            "tests/output/write_test.arccol.0\n"
-            "0\n"
-            "115\n"
-            "tests/data/file_2.txt\n"
-            "tests/output/write_test.arccol.0\n"
-            "115\n"
-            "64\n";
+            "tests/data/file_1.txt,tests/output/write_test.arccol,0,0,115\n"
+            "tests/data/file_2.txt,tests/output/write_test.arccol,0,115,64\n";
 
         collated_results.push_back(arc::str::UTF8String(
             "This is the first file\n"
@@ -184,22 +178,10 @@ public:
         base_path << "tests" << "output" << "write_test.arccol";
 
         toc_result =
-            "tests/data/file_1.txt\n"
-            "tests/output/write_test.arccol.0\n"
-            "0\n"
-            "115\n"
-            "tests/data/file_2.txt\n"
-            "tests/output/write_test.arccol.0\n"
-            "115\n"
-            "64\n"
-            "tests/data/file_3.json\n"
-            "tests/output/write_test.arccol.0\n"
-            "179\n"
-            "75\n"
-            "tests/data/file_4.bin\n"
-            "tests/output/write_test.arccol.0\n"
-            "254\n"
-            "440\n";
+            "tests/data/file_1.txt,tests/output/write_test.arccol,0,0,115\n"
+            "tests/data/file_2.txt,tests/output/write_test.arccol,0,115,64\n"
+            "tests/data/file_3.json,tests/output/write_test.arccol,0,179,75\n"
+            "tests/data/file_4.bin,tests/output/write_test.arccol,1,54,440\n";
 
         collated_results.push_back(arc::str::UTF8String(
             "This is the first file\n"
@@ -222,27 +204,31 @@ public:
             "\n"
             "1337\n"
             "{\n"
-            "    \"value_1\": \"Hello world!\",\n"
+            "    \"value_1\": \"Hel"
+        ));
+
+        collated_results.push_back(arc::str::UTF8String(
+            "lo world!\",\n"
             "    \"value_2\": 175,\n"
             "    \"value_3\": 3.14\n"
             "}\n"
-            "54"
-        ));
-
-        collated_results.push_back(arc::str::UTF8String(
-            "46 3853 7472 696e 6745 005f 5a4e 3361\n"
+            "5446 3853 7472 696e 6745 005f 5a4e 3361\n"
             "7263 3474 6573 7432 3372 6567 6973 7465\n"
             "725f 676c 6f62 616c 5f66 6978 7475 7265\n"
-            "4550 4676 7645 5332 5f00 5f5f 6e69 7465\n"
-            "725f 6261 7365 3c76 6f69 6420 282a 2a29\n"
-            "2829 3e00 5f5a 5374 3334 5f5f 756e 696e\n"
-            "6974 6961 6c69 7a6"
+            "4550 4676 7645 5332 5f00 5"
         ));
 
         collated_results.push_back(arc::str::UTF8String(
-            "5 645f 6d6f 7665 5f69\n"
+            "f5f 6e69 7465\n"
+            "725f 6261 7365 3c76 6f69 6420 282a 2a29\n"
+            "2829 3e00 5f5a 5374 3334 5f5f 756e 696e\n"
+            "6974 6961 6c69 7a65 645f 6d6f 7665 5f69\n"
             "665f 6e6f 6578 6365 7074 5f61 4950 5046\n"
-            "7676 4553 325f 5361 4953 315f 4545 5430\n"
+            "7676 4553 325f 5361 4953 3"
+        ));
+
+        collated_results.push_back(arc::str::UTF8String(
+            "15f 4545 5430\n"
             "5f54 5f53 355f 5334 5f52 5431 5f00 5f5a\n"
             "4e53 7436 7665 6374 6f72 4950 4676 7645\n"
         ));
@@ -253,7 +239,7 @@ ARC_TEST_UNIT_FIXTURE(test_2, Test2Fixtue)
 {
     // set up the table of contents and the collator
     arccol::TableOfContents toc(fixture->toc_path);
-    arccol::Collator collator(&toc, fixture->base_path, 256);
+    arccol::Collator collator(&toc, fixture->base_path, 200);
 
     // add resources
     arc::io::sys::Path resource_1;
@@ -332,22 +318,10 @@ public:
         base_path_2 << "tests" << "output" << "write_test_2.arccol";
 
         toc_result =
-            "tests/data/file_3.json\n"
-            "tests/output/write_test_1.arccol.0\n"
-            "0\n"
-            "75\n"
-            "tests/data/file_4.bin\n"
-            "tests/output/write_test_1.arccol.0\n"
-            "75\n"
-            "440\n"
-            "tests/data/file_1.txt\n"
-            "tests/output/write_test_2.arccol.0\n"
-            "0\n"
-            "115\n"
-            "tests/data/file_2.txt\n"
-            "tests/output/write_test_2.arccol.0\n"
-            "115\n"
-            "64\n";
+            "tests/data/file_3.json,tests/output/write_test_1.arccol,0,0,75\n"
+            "tests/data/file_4.bin,tests/output/write_test_1.arccol,0,75,440\n"
+            "tests/data/file_1.txt,tests/output/write_test_2.arccol,0,0,115\n"
+            "tests/data/file_2.txt,tests/output/write_test_2.arccol,0,115,64\n";
 
         collated_results.push_back(arc::str::UTF8String(
             "{\n"
@@ -499,7 +473,7 @@ ARC_TEST_UNIT_FIXTURE(revert, Test2Fixtue)
 {
     // set up the table of contents and the collator
     arccol::TableOfContents toc(fixture->toc_path);
-    arccol::Collator collator(&toc, fixture->base_path, 256);
+    arccol::Collator collator(&toc, fixture->base_path, 200);
 
     // add resources
     arc::io::sys::Path resource_1;

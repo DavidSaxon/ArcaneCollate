@@ -20,7 +20,13 @@ class Collator;
 struct ResourceEntry;
 
 /*!
- * \brief TODO:
+ * \brief Object that is used to write the table of contents that defines which
+ *        collated files contain which resources and the size and the offsets of
+ *        the resource in the collated files.
+ *
+ * This object should be passed to one or more Collator objects and will then be
+ * informed by the Collator what resources should be added to the table of
+ * contents.
  */
 class TableOfContents
 {
@@ -41,7 +47,10 @@ public:
     //--------------------------------------------------------------------------
 
     /*!
-     * \brief TODO:
+     * \brief Creates a new TableOfContents.
+     *
+     * \param path The file path that the table of contents file will be written
+     *             to.
      */
     TableOfContents(const arc::io::sys::Path& path);
 
@@ -66,7 +75,7 @@ public:
      * \note This function should be called after all Collator objects using
      *       this TableOfContents have been executed.
      *
-     * \throws arc::ex::InvalidPathError If the path for the TableOfContent
+     * \throws arc::ex::IOError If the path for the TableOfContent
      *                                   cannot be written to.
      */
     void write();
@@ -82,15 +91,18 @@ protected:
      *
      * \param resource_path The path of the resource being added to the table of
      *                      contents.
-     * \param collate_path The path to the collated file this resource will be
-     *                     stored in.
+     * \param base_path The base path of the collated file this is resource is
+     *                  located within.
+     * \param page_index The page number of the collated file this resource is
+     *                   within.
      * \param offset The offset in bytes where the start of the resource begins
      *               in the collated file.
      * \param size The size in bytes of the resource.
      */
     void add_resource(
             const arc::io::sys::Path& resource_path,
-            const arc::io::sys::Path& collate_path,
+            const arc::io::sys::Path& base_path,
+            std::size_t page_index,
             arc::int64 offset,
             arc::int64 size);
 

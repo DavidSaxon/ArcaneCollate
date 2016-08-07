@@ -40,8 +40,7 @@ public:
      *                 file handle will be opened on construction.
      * \param verbosity_level The initial level of verbosity of this output.
      *
-     * \throws arc::ex::InvalidPathError If the path cannot be opened for
-     *                                     writing.
+     * \throws arc::ex::IOError If the path cannot be opened for writing.
      */
     FileOutput(
             arc::io::sys::Path& path,
