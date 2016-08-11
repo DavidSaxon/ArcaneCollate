@@ -24,7 +24,8 @@ namespace arccol
 {
 
 /*!
- * \brief TODO
+ * \brief Object used to access the locations of resources in collated files
+ *        from a table of contents file one disk.
  */
 class Accessor
 {

@@ -4,6 +4,7 @@ project(ArcaneCollate)
 set(WRITE_SRC
     src/cpp/arcanecollate/Accessor.cpp
     src/cpp/arcanecollate/Collator.cpp
+    src/cpp/arcanecollate/Reader.cpp
     src/cpp/arcanecollate/TableOfContents.cpp
 )
 

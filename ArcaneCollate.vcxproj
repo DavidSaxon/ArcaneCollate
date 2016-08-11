@@ -17,6 +17,7 @@
   <ItemGroup Condition="'$(Configuration)'=='collate_lib'">
     <ClCompile Include="src\cpp\arcanecollate\Accessor.cpp" />
     <ClCompile Include="src\cpp\arcanecollate\Collator.cpp" />
+    <ClCompile Include="src\cpp\arcanecollate\Reader.cpp" />
     <ClCompile Include="src\cpp\arcanecollate\TableOfContents.cpp" />
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)'=='tests'">
