@@ -26,7 +26,8 @@ Reader::Reader(
     m_current_page          (0),
     m_current_offset        (0),
     m_current_size          (0),
-    m_position              (0)
+    m_position              (0),
+    m_eof                   (false)
 {
 }
 
@@ -44,7 +45,8 @@ Reader::Reader(
     m_current_page          (0),
     m_current_offset        (0),
     m_current_size          (0),
-    m_position              (0)
+    m_position              (0),
+    m_eof                   (false)
 {
     // set and open the file
     set_path(resource);
@@ -62,7 +64,8 @@ Reader::Reader(Reader&& other)
     m_current_page          (other.m_current_page),
     m_current_offset        (other.m_current_offset),
     m_current_size          (other.m_current_size),
-    m_position              (other.m_position)
+    m_position              (other.m_position),
+    m_eof                   (other.m_eof)
 {
     // reset other resources
     other.m_accessor = nullptr;
@@ -73,6 +76,7 @@ Reader::Reader(Reader&& other)
     other.m_current_offset = 0;
     other.m_current_size = 0;
     other.m_position = 0;
+    other.m_eof = false;
 }
 
 //------------------------------------------------------------------------------
@@ -92,6 +96,7 @@ Reader& Reader::operator=(Reader&& other)
     m_current_offset = other.m_current_offset;
     m_current_size = other.m_current_size;
     m_position = other.m_position;
+    other.m_eof = other.m_eof;
 
     // reset
     other.m_accessor = nullptr;
@@ -102,6 +107,7 @@ Reader& Reader::operator=(Reader&& other)
     other.m_current_offset = 0;
     other.m_current_size = 0;
     other.m_position = 0;
+    other.m_eof = false;
 
     return *this;
 }
@@ -159,6 +165,7 @@ void Reader::open()
     // file reader is open
     m_open = true;
     m_newline_checker_valid = false;
+    m_eof = false;
 
     // seek to the beginning of the resource
     m_stream->seekg(m_offset, std::ios_base::beg);
@@ -172,7 +179,14 @@ void Reader::open()
 
 arc::int64 Reader::tell() const
 {
-    // TODO: check open
+    // ensure the Reader is open
+    if(!m_open)
+    {
+        throw arc::ex::StateError(
+            "File position indicator cannot be queried while the Reader is "
+            "closed."
+        );
+    }
 
     // default to standard behavior
     if(!m_from_collated)
@@ -185,7 +199,14 @@ arc::int64 Reader::tell() const
 
 void Reader::seek(arc::int64 index)
 {
-    // TODO: check open
+    // ensure the Reader is open
+    if(!m_open)
+    {
+        throw arc::ex::StateError(
+            "File position indicator cannot be moved while the Reader is "
+            "closed."
+        );
+    }
 
     // default to standard behavior
     if(!m_from_collated)
@@ -195,9 +216,14 @@ void Reader::seek(arc::int64 index)
     }
 
     // clamp to the resource range
-    if(index > m_size)
+    if(index >= m_size)
     {
         index = m_size;
+    }
+    // clear eof file flag before seeking within the file range
+    else
+    {
+        m_eof = false;
     }
 
     // get the distance we need to seek
@@ -251,7 +277,13 @@ void Reader::seek(arc::int64 index)
 
 bool Reader::eof() const
 {
-    // TODO: check open
+    // ensure the Reader is open
+    if(!m_open)
+    {
+        throw arc::ex::StateError(
+            "End of file cannot be queried while the Reader is closed."
+        );
+    }
 
     // default to standard behavior
     if(!m_from_collated)
@@ -259,12 +291,12 @@ bool Reader::eof() const
         return FileReader::eof();
     }
 
-    return m_position >= m_size;
+    return m_eof;
 }
 
 void Reader::read(char* data, arc::int64 length)
 {
-    // TODO: check open
+    check_can_read();
 
     // default to standard behavior
     if(!m_from_collated)
@@ -312,6 +344,12 @@ void Reader::read(char* data, arc::int64 length)
 
     // update position
     m_position += length;
+
+    // if we have reached the end of the stream, set the end of file flag
+    if(m_position >= m_size)
+    {
+        m_eof = true;
+    }
 }
 
 void Reader::read(arc::str::UTF8String& data, arc::int64 length)

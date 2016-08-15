@@ -184,6 +184,11 @@ private:
      */
     arc::int64 m_position;
 
+    /*!
+     * \brief Stores whether the end of the file has been reached or not.
+     */
+    bool m_eof;
+
     //--------------------------------------------------------------------------
     //                          PRIVATE MEMBER FUNCTIONS
     //--------------------------------------------------------------------------

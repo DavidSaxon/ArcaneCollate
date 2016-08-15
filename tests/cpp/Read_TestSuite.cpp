@@ -418,14 +418,9 @@ ARC_TEST_UNIT_FIXTURE(half_resources, HalfResourcesFixture)
             reader.seek(reader.get_size() - 1);
             ARC_CHECK_FALSE(reader.eof());
 
-            // seek to the end of the file and check eof is set
-            reader.seek(0);
+            // seek to the end of the file and check eof is unset
             reader.seek(reader.get_size());
-            ARC_CHECK_TRUE(reader.eof());
-
-            // seek passed the end of the file and check eof is still set
-            reader.seek(reader.get_size() * 2);
-            ARC_CHECK_TRUE(reader.eof());
+            ARC_CHECK_FALSE(reader.eof());
 
             reader.close();
         }
@@ -474,10 +469,9 @@ ARC_TEST_UNIT_FIXTURE(half_resources, HalfResourcesFixture)
             reader.seek(reader.get_size() - 1);
             ARC_CHECK_FALSE(reader.eof());
 
-            // TODO: renable once ArcaneCore is fixed
-            // // seek to the end of the file and check eof is set
-            // reader.seek(reader.get_size());
-            // ARC_CHECK_TRUE(reader.eof());
+            // seek to the end of the file and check eof is unset
+            reader.seek(reader.get_size());
+            ARC_CHECK_FALSE(reader.eof());
 
             reader.close();
         }

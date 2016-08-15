@@ -317,6 +317,13 @@ protected:
      */
     Encoding detect_encoding();
 
+    /*!
+     * \brief If the FileReader is closed this function will throw a
+     *        arc::ex::IOError, or if the FileReader is at the end of the file
+     *        a arc::ex::EOFError will be thrown.
+     */
+    void check_can_read();
+
 private:
 
     //--------------------------------------------------------------------------
@@ -341,12 +348,6 @@ private:
      * This function will initialise the checker if need be.
      */
     NewlineChecker* get_newline_checker();
-
-    /*!
-     * \brief Checks and throws common exception as to whether the file can be
-     *        read from.
-     */
-    void check_can_read();
 };
 
 } // namespace sys
