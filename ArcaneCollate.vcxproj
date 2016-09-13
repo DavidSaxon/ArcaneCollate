@@ -92,7 +92,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\Dropbox\Development\ArcaneCollate\ArcaneCollate\ext\ArcaneCore\include;D:\Dropbox\Development\ArcaneCollate\ArcaneCollate\ext\ArcaneLog\include;D:\Dropbox\Development\ArcaneCollate\ArcaneCollate\src\cpp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Dropbox\Development\ArcaneCore\ArcaneCore\src\cpp;D:\Dropbox\Development\ArcaneLog\ArcaneLog\src\cpp;D:\Dropbox\Development\ArcaneCollate\ArcaneCollate\src\cpp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -107,13 +107,13 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\Dropbox\Development\ArcaneCollate\ArcaneCollate\ext\ArcaneCore\include;D:\Dropbox\Development\ArcaneCollate\ArcaneCollate\ext\ArcaneLog\include;D:\Dropbox\Development\ArcaneCollate\ArcaneCollate\src\cpp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Dropbox\Development\ArcaneCore\ArcaneCore\src\cpp;D:\Dropbox\Development\ArcaneLog\ArcaneLog\src\cpp;D:\Dropbox\Development\ArcaneCollate\ArcaneCollate\src\cpp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>D:\Dropbox\Development\ArcaneCollate\ArcaneCollate\ext\ArcaneCore\lib\win_x86;D:\Dropbox\Development\ArcaneCollate\ArcaneCollate\ext\ArcaneLog\lib\win_x86;D:\Dropbox\Development\ArcaneCollate\ArcaneCollate\build\win_x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\Dropbox\Development\ArcaneCore\ArcaneCore\build\win_x86;D:\Dropbox\Development\ArcaneLog\ArcaneLog\build\win_x86;D:\Dropbox\Development\ArcaneCollate\ArcaneCollate\build\win_x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>arcanecore_test.lib;arcanecore_io.lib;arcanecore_base.lib;arcanelog.lib;arcanecollate.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -124,13 +124,13 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\Dropbox\Development\ArcaneCollate\ArcaneCollate\ext\ArcaneCore\include;D:\Dropbox\Development\ArcaneCollate\ArcaneCollate\ext\ArcaneLog\include;D:\Dropbox\Development\ArcaneCollate\ArcaneCollate\src\cpp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Dropbox\Development\ArcaneCore\ArcaneCore\src\cpp;D:\Dropbox\Development\ArcaneLog\ArcaneLog\src\cpp;D:\Dropbox\Development\ArcaneCollate\ArcaneCollate\src\cpp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>D:\Dropbox\Development\ArcaneCollate\ArcaneCollate\ext\ArcaneCore\lib\win_x86;D:\Dropbox\Development\ArcaneCollate\ArcaneCollate\ext\ArcaneLog\lib\win_x86;D:\Dropbox\Development\ArcaneCollate\ArcaneCollate\build\win_x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\Dropbox\Development\ArcaneCore\ArcaneCore\build\win_x86;D:\Dropbox\Development\ArcaneLog\ArcaneLog\build\win_x86;D:\Dropbox\Development\ArcaneCollate\ArcaneCollate\build\win_x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>arcanecore_test.lib;arcanecore_io.lib;arcanecore_base.lib;arcanelog.lib;arcanelog_shared.lib;arcanecollate.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
