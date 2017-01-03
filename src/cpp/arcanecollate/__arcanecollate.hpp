@@ -160,7 +160,7 @@
  * \code
  * arc::io::sys::Path logo_path;
  * logo_path << "res" << "images" << "logo.png";
- * arccol::Reader image_reader(&accessor, logo_path);
+ * arccol::Reader image_reader(logo_path, &accessor);
  * \endcode
  *
  * If the resource does not exist in the accessor's Table of Contents the
