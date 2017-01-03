@@ -3,6 +3,7 @@
 #include <arcanecore/base/Exceptions.hpp>
 #include <arcanecore/base/str/StringOperations.hpp>
 #include <arcanecore/io/sys/FileReader.hpp>
+#include <arcanecore/io/sys/FileSystemOperations.hpp>
 
 #include <arcanelog/Input.hpp>
 #include <arcanelog/LogHandler.hpp>
@@ -235,6 +236,91 @@ void Accessor::get_resource(
     page_index = r_find->second.page_index;
     offset = r_find->second.offset;
     size = r_find->second.size;
+}
+
+std::vector<arc::io::sys::Path> Accessor::list(const arc::io::sys::Path& path)
+{
+    // use real resources?
+    if(Accessor::force_real_resources)
+    {
+        return arc::io::sys::list(path, false);
+    }
+
+    std::vector<arc::io::sys::Path> ret;
+
+    // TODO: use absolute paths
+
+    // iterate over the resources in this accessor
+    std::map<arc::io::sys::Path, ResourceLocation>::const_iterator it;
+    for(it = m_resources.begin(); it != m_resources.end(); ++it)
+    {
+        const arc::io::sys::Path& l_path = it->first;
+        // look for resources that are exactly 1 component longer than this
+        // path
+        if((path.get_length() + 1) == l_path.get_length())
+        {
+            // do the components match
+            bool match = true;
+            for(std::size_t i = 0; i < path.get_length(); ++i)
+            {
+                if(path[i] != l_path[i])
+                {
+                    match = false;
+                    break;
+                }
+            }
+            // if there was a match, add this path to the return list
+            if(match)
+            {
+                ret.push_back(l_path);
+            }
+        }
+    }
+
+    return ret;
+}
+
+std::vector< arc::io::sys::Path> Accessor::list_rec(
+        const arc::io::sys::Path& path)
+{
+    // use real resources?
+    if(Accessor::force_real_resources)
+    {
+        return arc::io::sys::list_rec(path, false);
+    }
+
+    std::vector<arc::io::sys::Path> ret;
+
+    // TODO: use absolute paths
+
+    // iterate over the resources in this accessor
+    std::map<arc::io::sys::Path, ResourceLocation>::const_iterator it;
+    for(it = m_resources.begin(); it != m_resources.end(); ++it)
+    {
+        const arc::io::sys::Path& l_path = it->first;
+        // look for resources that are at least 1 component longer than this
+        // path
+        if(path.get_length() < l_path.get_length())
+        {
+            // do the components match
+            bool match = true;
+            for(std::size_t i = 0; i < path.get_length(); ++i)
+            {
+                if(path[i] != l_path[i])
+                {
+                    match = false;
+                    break;
+                }
+            }
+            // if there was a match, add this path to the return list
+            if(match)
+            {
+                ret.push_back(l_path);
+            }
+        }
+    }
+
+    return ret;
 }
 
 } // namespace arccol

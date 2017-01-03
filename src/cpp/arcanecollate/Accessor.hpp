@@ -170,6 +170,47 @@ public:
             arc::int64& offset,
             arc::int64& size) const;
 
+    /*!
+     * \brief Lists the file system paths that are in the given path that are
+     *        listed in the table of contents of this accessor.
+     *
+     * This operation performs a similar function to the `ls` command on Linux,
+     * or the `dir` command on Windows. An empty vector will be returned if the
+     * given path does not exist or is .not a directory.
+     *
+     * \note If Accessor::force_real_resources is ```true``` this function will
+     *       return the result of arc::io::sys::list()
+     *
+     * \param path The file path to list sub-paths for.
+     * \return The vector of sub-paths.
+     */
+    std::vector<arc::io::sys::Path> list(const arc::io::sys::Path& path);
+
+    /*!
+     * \brief Lists all descendant file system paths located under the given path.
+     *
+     * This operation returns a vector similar to that of list(), except any sub
+     * paths that are also directories are traversed and so on, so that this
+     * function returns all paths that are a descendant of the given path. This
+     * function will not resolve symbolics in order to avoid infinite recursion.
+     */
+
+    /*!
+     * \breif Lists all descendant file system paths located under the given
+     *        path that are listed in the table of contents of this accessor.
+     *
+     * This operation returns a vector similar to that of list(), except any sub
+     * paths that are also directories are traversed and so on, so that this
+     * function returns all paths that are a descendant of the given path.
+     *
+     * \note If Accessor::force_real_resources is ```true``` this function will
+     *       return the result of arc::io::sys::list_rec()
+     *
+     * \param path The file path to list the descendant paths for.
+     * \return The vector of descendant paths.
+     */
+    std::vector< arc::io::sys::Path> list_rec(const arc::io::sys::Path& path);
+
 private:
 
     //--------------------------------------------------------------------------
