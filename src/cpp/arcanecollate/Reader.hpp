@@ -63,6 +63,7 @@ public:
      * sourced from the collated file, if it's not it will be sourced from the
      * real resource path.
      *
+     * \param resource The path to the resource to be read.
      * \param Accessor Object this Reader will use to locate resources.
      * \param encoding Defines the encoding of the contents of the resource to
      *                 read. If arc::io::sys::FileHandle::ENCODING_DETECT is
@@ -105,6 +106,43 @@ public:
      * \param other The Reader to move resources from.
      */
     Reader& operator=(Reader&& other);
+
+    //--------------------------------------------------------------------------
+    //                          PUBLIC STATIC FUNCTIONS
+    //--------------------------------------------------------------------------
+
+    /*!
+     * \brief Reads and returns the given resource from the Accessor.
+     *
+     * \param resource The path to the resource to be read.
+     * \param Accessor Object that will be used to locate resources.
+     * \param bytes Returns newly allocated data which contains the raw bytes
+     *              of the resource. This data will need to be deleted by the
+     *              caller.
+     * \param encoding Defines the encoding of the contents of the resource to
+     *                 read. If arc::io::sys::FileHandle::ENCODING_DETECT is
+     *                 used the Reader will attempt to detect the encoding used
+     *                 in the resource at the time of opening. If the encoding
+     *                 cannot be detected arc::io::sys::FileHandle::ENCODING_RAW
+     *                 will be used. The detected encoding can be queried using
+     *                 get_encoding() once the resource has been opened.
+     * \param newline The newline symbol used in the resource to read.
+     *                See set_newline().
+     *
+     * \return The number of bytes in the returned data.
+     *
+     * \throws arc::io::sys::IOError If the resource is being read from a
+     *                               collated file but the collated cannot be
+     *                               accessed. Or if the resource is being read
+     *                               from its real path but it cannot be
+     *                               accessed.
+     */
+    static arc::int64 get_bytes(
+            const arc::io::sys::Path& resource,
+            const Accessor* accessor,
+            char** bytes,
+            Encoding encoding = ENCODING_DETECT,
+            Newline newline   = NEWLINE_UNIX);
 
     //--------------------------------------------------------------------------
     //                          PUBLIC MEMBER FUNCTIONS

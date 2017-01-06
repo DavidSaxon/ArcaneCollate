@@ -113,6 +113,27 @@ Reader& Reader::operator=(Reader&& other)
 }
 
 //------------------------------------------------------------------------------
+//                            PUBLIC STATIC FUNCTIONS
+//------------------------------------------------------------------------------
+
+arc::int64 Reader::get_bytes(
+        const arc::io::sys::Path& resource,
+        const Accessor* accessor,
+        char** bytes,
+        Encoding encoding,
+        Newline newline)
+{
+    // crate the reader to access to file
+    arccol::Reader reader(resource, accessor, encoding, newline);
+    // read the data from the file
+    const arc::int64 data_size = reader.get_size();
+    *bytes = new char[data_size];
+    reader.read(*bytes, data_size);
+
+    return data_size;
+}
+
+//------------------------------------------------------------------------------
 //                            PUBLIC MEMBER FUNCTIONS
 //------------------------------------------------------------------------------
 
