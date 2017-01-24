@@ -88,7 +88,7 @@ void TableOfContents::add_resource(
         arc::int64 size)
 {
     std::unique_ptr<ResourceEntry> entry(new ResourceEntry());
-    entry->resource_path = resource_path;
+    entry->resource_path = resource_path.to_absolute();
     entry->base_path = base_path;
     entry->page_index = page_index;
     entry->offset = offset;

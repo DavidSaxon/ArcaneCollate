@@ -149,7 +149,9 @@ ARC_TEST_UNIT_FIXTURE(empty_toc, EmptyTOCFixture)
     // check none of the resources are found by the accessor
     for(const arc::io::sys::Path& resource : fixture->resources)
     {
-        ARC_CHECK_FALSE(accessor.has_resource(resource));
+        arc::io::sys::Path abs_path = resource.to_absolute();
+
+        ARC_CHECK_FALSE(accessor.has_resource(abs_path));
 
         arc::io::sys::Path base_path;
         std::size_t page_index = 0;
@@ -157,7 +159,7 @@ ARC_TEST_UNIT_FIXTURE(empty_toc, EmptyTOCFixture)
         arc::int64 size = 0;
         ARC_CHECK_THROW(
             accessor.get_resource(
-                resource, base_path, page_index, offset, size),
+                abs_path, base_path, page_index, offset, size),
             arc::ex::KeyError
         );
     }
@@ -245,19 +247,19 @@ ARC_TEST_UNIT_FIXTURE(single_page, SinglePageFixture)
     // check that all resources are found by the accessor
     for(std::size_t i = 0; i < fixture->resources.size(); ++i )
     {
-        ARC_TEST_MESSAGE(
-            arc::str::UTF8String("Checking resource: ") +
-            fixture->resources[i].to_native()
-        );
+        arc::io::sys::Path abs_path = fixture->resources[i].to_absolute();
 
-        ARC_CHECK_TRUE(accessor.has_resource(fixture->resources[i]));
+        ARC_TEST_MESSAGE(
+            arc::str::UTF8String("Checking resource: ") + abs_path.to_native());
+
+        ARC_CHECK_TRUE(accessor.has_resource(abs_path));
 
         arc::io::sys::Path base_path;
         std::size_t page_index = 0;
         arc::int64 offset = 0;
         arc::int64 size = 0;
         accessor.get_resource(
-            fixture->resources[i],
+            abs_path,
             base_path,
             page_index,
             offset,
