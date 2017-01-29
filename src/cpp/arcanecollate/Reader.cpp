@@ -127,7 +127,7 @@ arc::int64 Reader::get_bytes(
     arccol::Reader reader(resource, accessor, encoding, newline);
     // read the data from the file
     const arc::int64 data_size = reader.get_size();
-    *bytes = new char[data_size];
+    *bytes = new char[static_cast<std::size_t>(data_size)];
     reader.read(*bytes, data_size);
 
     return data_size;

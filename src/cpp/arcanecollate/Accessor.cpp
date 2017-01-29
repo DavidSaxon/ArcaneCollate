@@ -130,11 +130,13 @@ void Accessor::reload()
         }
 
         // get the resource path
-        arc::io::sys::Path resource(line_elements[0]);
+        arc::io::sys::Path resource =
+            arc::io::sys::Path::from_unix_string(line_elements[0]);
 
         // create a new resource location to load the entry into
         ResourceLocation location;
-        location.base_path = arc::io::sys::Path(line_elements[1]);
+        location.base_path =
+            arc::io::sys::Path::from_unix_string(line_elements[1]);
         // get and check page index is valid
         if(!line_elements[2].is_uint())
         {
@@ -210,7 +212,7 @@ void Accessor::set_table_of_contents_path(const arc::io::sys::Path& path)
 
 bool Accessor::has_resource(const arc::io::sys::Path& resource_path) const
 {
-    return m_resources.find(resource_path.to_absolute()) != m_resources.end();
+    return m_resources.find(resource_path) != m_resources.end();
 }
 
 void Accessor::get_resource(
@@ -220,16 +222,14 @@ void Accessor::get_resource(
         arc::int64& offset,
         arc::int64& size) const
 {
-    // get the absolute path to the resource
-    arc::io::sys::Path abs_path = resource_path.to_absolute();
-
     // check that the resource is in the map
     std::map<arc::io::sys::Path, ResourceLocation>::const_iterator r_find =
-        m_resources.find(abs_path);
+        m_resources.find(resource_path);
     if(r_find == m_resources.end())
     {
         arc::str::UTF8String error_message;
-        error_message << "No resource in Accessor for \"" << abs_path << "\".";
+        error_message << "No resource in Accessor for \"" << resource_path
+                      << "\".";
         throw arc::ex::KeyError(error_message);
     }
 
@@ -249,8 +249,6 @@ std::vector<arc::io::sys::Path> Accessor::list(const arc::io::sys::Path& path)
     }
 
     std::vector<arc::io::sys::Path> ret;
-
-    // TODO: use absolute paths
 
     // iterate over the resources in this accessor
     std::map<arc::io::sys::Path, ResourceLocation>::const_iterator it;
@@ -292,8 +290,6 @@ std::vector< arc::io::sys::Path> Accessor::list_rec(
     }
 
     std::vector<arc::io::sys::Path> ret;
-
-    // TODO: use absolute paths
 
     // iterate over the resources in this accessor
     std::map<arc::io::sys::Path, ResourceLocation>::const_iterator it;

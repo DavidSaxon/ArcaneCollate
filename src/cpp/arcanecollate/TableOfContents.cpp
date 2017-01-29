@@ -2,6 +2,9 @@
 
 #include <arcanecore/io/sys/FileWriter.hpp>
 
+// TODO: REMOVE ME
+#include <iostream>
+
 namespace arccol
 {
 
@@ -87,8 +90,11 @@ void TableOfContents::add_resource(
         arc::int64 offset,
         arc::int64 size)
 {
+    std::cout << "TableOfContents::add_resource: " << resource_path
+              << std::endl;
+
     std::unique_ptr<ResourceEntry> entry(new ResourceEntry());
-    entry->resource_path = resource_path.to_absolute();
+    entry->resource_path = resource_path;
     entry->base_path = base_path;
     entry->page_index = page_index;
     entry->offset = offset;
