@@ -15,7 +15,16 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\cpp\cmd\CommandLineTool.cpp">
+    <ClCompile Include="src\cpp\arcanecollate\Accessor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\arcanecollate\Collator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\arcanecollate\Reader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\arcanecollate\TableOfContents.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
